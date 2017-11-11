@@ -5,3 +5,5 @@ node_modules
 package-lock.json
 .buildinfo.json
 .image.json
+www_talktoamaintainer_com.pem
+www_talktoamaintainer_com.key

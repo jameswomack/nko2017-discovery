@@ -9,12 +9,13 @@ command = "kickerd --file /etc/nginx/.kicker.toml --etcd http://etcd.data:2379"
 
 [ports]
   http = "80"
+  https = "443"
 
 [mounts]
   config-files = "/etc/nginx"
 
 [volumes]
-  config-files = "nginx-files::nginx.conf,mime.types,.kicker=.kicker.toml"
+  config-files = "nginx-files::nginx.conf,mime.types,www_talktoamaintainer_com.key,www_talktoamaintainer_com.pem,.kicker=.kicker.toml"
 
 [service]
   loadbalance = true
