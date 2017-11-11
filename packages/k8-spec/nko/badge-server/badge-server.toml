@@ -1,5 +1,5 @@
 name = "badge-server.nko"
-image = "bcoe/nko-badges-server:badges-server_1.0.0_3_6ac9429b"
+image = "bcoe/nko-badges-server:redis-example_1.0.0_6_22439523"
 
 [scale]
   containers = 1
@@ -9,6 +9,7 @@ image = "bcoe/nko-badges-server:badges-server_1.0.0_3_6ac9429b"
 [env]
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "badge-server"
+  REDIS_URL = "redis://redis.data"
   # [env.shared-config]
 
 [ports]
