@@ -7,7 +7,7 @@ MAINTAINER Ben Coe
 WORKDIR /app/src
 COPY ./package.json /app/src/
 COPY ./.kicker.toml /app/src/
-COPY ./index.js /app/src/
+COPY ./server.js /app/src/
 
 RUN npm install
 
