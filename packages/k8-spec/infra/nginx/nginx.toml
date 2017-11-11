@@ -1,0 +1,23 @@
+name = "proxy.infra"
+image = "arobson/alpine-nginx:latest"
+command = "kickerd --file /etc/nginx/.kicker.toml --etcd http://etcd.data:2379"
+
+[scale]
+  containers = 2
+  ram = "> 50 Mi < 200 Mi"
+  cpu = "> 1% < 20%"
+
+[ports]
+  http = "80"
+
+[mounts]
+  config-files = "/etc/nginx"
+
+[volumes]
+  config-files = "nginx-files::nginx.conf,mime.types,.kicker=.kicker.toml"
+
+[service]
+  loadbalance = true
+
+[deploy]
+  pull = "Always"

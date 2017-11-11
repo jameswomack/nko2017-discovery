@@ -1,0 +1,41 @@
+name = "etcd.data"
+stateful = true
+image = "quay.io/coreos/etcd:v3.2.3"
+command = [
+  '/bin/sh',
+  '-ecx',
+  '''
+  export HOSTNAME=$(hostname -f)
+  /usr/local/bin/etcd \
+    --name "$(hostname -f)" \
+    --discovery https://discovery.etcd.io/<%=etcdDiscoveryKey%> \
+    --initial-advertise-peer-urls "http://$HOSTNAME:2380" \
+    --initial-cluster-token <%=etcdClusterToken%> \
+    --initial-cluster-state new \
+    --advertise-client-urls "http://$HOSTNAME:2379" \
+    --listen-client-urls http://0.0.0.0:2379 \
+    --listen-peer-urls http://0.0.0.0:2380
+  '''
+]
+
+[scale]
+  containers = 2
+  ram = "> 50 Mi < 200 Mi"
+  cpu = "> 1% < 20%"
+
+[ports]
+  client = "2379"
+  peer = "2380"
+
+[mounts]
+  etcd-data = "/var/etcd/data"
+  cert-data = "/etc/ssl/certs"
+
+[volumes]
+  cert-data = "/usr/share/ca-certificates"
+
+[storage]
+  etcd-data = "5Gi:exclusive"
+
+[service]
+  alias = "etcd"

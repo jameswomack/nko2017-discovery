@@ -1,0 +1,25 @@
+name = "redis.data"
+stateful = true
+image = "redis:3.2.11-alpine"
+command = 'redis-server /usr/local/redis/redis.conf'
+
+[scale]
+  containers = 1
+  ram = "> 50 Mi < 200 Mi"
+  cpu = "> 1% < 20%"
+
+[ports]
+  redis = "6379"
+
+[mounts]
+  redis-data = "/data"
+  redis-conf = "/usr/local/redis"
+
+[storage]
+  redis-data = "5Gi:exclusive"
+
+[volumes]
+  redis-conf = "redis-conf::redis.conf"
+
+[service]
+  alias = "redis"
