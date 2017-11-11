@@ -1,19 +1,38 @@
 {
-  "name": "badges-server",
+  "name": "marketing-site",
+  "private": true,
   "version": "1.0.0",
-  "description": "serve office hour badges",
+  "description": "The Marketing Site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack -p --config webpack.config.js --progress",
+    "start:production": "NODE_ENV=production npm start",
+    "start": "node --harmony server.js"
   },
-  "keywords": [
-    "office",
-    "hours",
-    "nko"
-  ],
-  "author": "Team Discovery Channel",
+  "config": {
+    "port": 8082
+  },
+  "author": "James J. Womack",
   "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.0",
+    "babel-preset-netflix-dea": "4.0.0-insiders.3",
+    "css-loader": "^0.28.7",
+    "eslint": "4.11.0",
+    "eslint-config-netflix-dea": "3.0.0",
+    "eslint-plugin-react": "7.4.0",
+    "opn": "5.1.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-hot-loader": "next",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.0.0",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.0"
+  },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.15.3"
   }
 }
