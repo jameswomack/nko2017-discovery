@@ -1,7 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  --restless-sea: #A6D97A;
+  --sleeping-on-it: #62CCA9;
+  --green: #3D9994;
+  --sweep-me-away: #307391;
+  --marimekko-flower: #274E87;
+  --near-black: #111621;
+}
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--marimekko-flower);
+}
+
+.masthead {
+  background-color: var(--sleeping-on-it);
+  border-bottom: .5rem solid var(--marimekko-flower);
+  padding: 2rem 0 1rem;
+  color: var(--near-black);
+}
+
+button.more-info {
+  -webkit-appearance: none;
+  position: absolute;
+  top: 2rem; right: 5rem;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  padding: 0 .25rem;
+  font-size: 1.2rem;
+}
+
+button.more-info:focus, button.more-info:active {
+  outline: none;
+}
+
+.login-panel {
+  display: inline-block;
+  margin-top: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--sweep-me-away);
+  width: fit-content;
+  padding: 2.5rem;
+}
+
+.login-link {
+  vertical-align: middle;
+  border-radius: .5rem;
+  padding: .65rem;
+  background-color: var(--restless-sea);
+}
+
+#ghLogo {
+  margin-left: .5rem;
+  vertical-align: middle;
 }

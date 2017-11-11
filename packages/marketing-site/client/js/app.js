@@ -1,5 +1,10 @@
 import ReactDOM from 'react-dom'
+import LoginPage from './loginPage/loginPage'
 
-const App = () => <h1>Marketing Site!</h1>
+const App = () => {
+  return (
+    <LoginPage />
+  )
+}
 
 ReactDOM.render(<App />, document.getElementById('root'))

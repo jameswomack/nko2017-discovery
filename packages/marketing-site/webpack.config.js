@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const CWD = process.cwd()
 
@@ -35,11 +36,20 @@ module.exports = {
         loader:'html-loader'
       },
       {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!sass-loader'
+        )
+      },
+      {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader']
-      }]
+      }
+    ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('[name].css')
   ]
 }
