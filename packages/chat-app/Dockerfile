@@ -8,6 +8,9 @@ WORKDIR /app/src
 COPY ./package.json /app/src/
 COPY ./.kicker.toml /app/src/
 COPY ./server.js /app/src/
+COPY ./public/ /app/src/public/
+COPY ./public/js/ /app/src/js/
+COPY ./client/ /app/src/client/
 
 RUN npm install
 

@@ -67,6 +67,10 @@ app.get('/chat-app-old.js', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'chat-app-old.js'))
 })
 
+app.get('/js/app.js', (req, res) => {
+  res.sendFile(path.resolve(process.cwd(), 'js', 'app.js'))
+})
+
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'))
 })

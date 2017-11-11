@@ -10,7 +10,6 @@ image = "bcoe/nko-badges-server:redis-example_1.0.0_6_22439523"
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "badge-server"
   REDIS_URL = "redis://redis.data"
-  # [env.shared-config]
 
 [ports]
   http = "8080"

@@ -1,6 +1,6 @@
 app = "chat-app"
 description =  "serve the chat server"
-start =  "node index.js"
+start =  "npm start"
 
 [environment]
   FAKE = "fake-variable-we-could-have"

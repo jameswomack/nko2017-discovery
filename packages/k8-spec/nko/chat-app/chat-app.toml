@@ -1,5 +1,5 @@
 name = "chat-app.nko"
-image = "bcoe/nko-chat-app:badges-server_1.0.0_0_6ac9429b"
+image = "bcoe/nko-chat-app:deploy-react_1.0.0_14_0e508e1b"
 
 [scale]
   containers = 1
@@ -9,7 +9,11 @@ image = "bcoe/nko-chat-app:badges-server_1.0.0_0_6ac9429b"
 [env]
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "chat-app"
-  # [env.shared-config]
+  NODE_ENV = "production"
+  [env.shared-config]
+    TWILIO_ACCOUNT_SID = "twilio_sid"
+    TWILIO_API_KEY = "twilio_key"
+    TWILIO_API_SECRET = "twilio_secret"
 
 [ports]
   http = "8081"

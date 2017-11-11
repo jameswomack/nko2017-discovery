@@ -1,6 +1,6 @@
 app = "marketing-site"
 description =  "serve the marketing site"
-start =  "node index.js"
+start =  "npm start"
 
 [environment]
   FAKE = "fake-variable-we-could-have"
