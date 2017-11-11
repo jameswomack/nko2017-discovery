@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'))
 })
 
+app.use(express.static(path.join(__dirname, 'public')))
+
 app.listen(PORT, () => {
   log(`now live on ${PORT}`)
 
