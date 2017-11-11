@@ -1,0 +1,6 @@
+app = "badges-server"
+description =  "serve badge images"
+start =  "node index.js"
+
+[environment]
+  FAKE = "fake-variable-we-could-have"

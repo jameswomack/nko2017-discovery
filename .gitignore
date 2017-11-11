@@ -1,3 +1,7 @@
 .DS_Store
 cluster.toml
 diff
+node_modules
+package-lock.json
+.buildinfo.json
+.image.json

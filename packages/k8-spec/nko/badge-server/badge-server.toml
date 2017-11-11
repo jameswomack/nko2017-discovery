@@ -1,0 +1,15 @@
+name = "badge-server.nko"
+image = "bcoe/nko-badges-server:badges-server_1.0.0_3_6ac9429b"
+
+[scale]
+  containers = 1
+  ram = "> 50 Mi < 200 Mi"
+  cpu = "> 1% < 20%"
+
+[env]
+  ETCD = "etcd.data:2379"
+  SERVICE_NAME = "badge-server"
+  # [env.shared-config]
+
+[ports]
+  http = "8080"

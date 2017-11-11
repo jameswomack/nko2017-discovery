@@ -1,0 +1,19 @@
+{
+  "name": "badges-server",
+  "version": "1.0.0",
+  "description": "serve office hour badges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "office",
+    "hours",
+    "nko"
+  ],
+  "author": "Team Discovery Channel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

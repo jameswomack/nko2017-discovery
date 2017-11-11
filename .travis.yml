@@ -12,4 +12,4 @@ before_script:
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - cd packages/badges-server; dockyard build image --repo=bcoe --name=badges-server
+  - cd packages/badges-server; dockyard build image --repo=bcoe --name=nko-badges-server
