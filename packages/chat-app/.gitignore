@@ -1,2 +1,5 @@
 # Twilio credentials file
 .env
+
+# Webpack output
+public/js/*.js

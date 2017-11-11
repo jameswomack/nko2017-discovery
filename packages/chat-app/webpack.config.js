@@ -2,14 +2,18 @@ const webpack = require('webpack')
 
 const CWD = process.cwd()
 
+const appEntry = [
+  './client/css/app.css',
+  './client/js/app.js'
+]
+
+if (process.env.NODE_ENV !== 'production')
+  appEntry.unshift('react-hot-loader/patch',
+    'webpack-hot-middleware/client?http://localhost:3000&reload=true')
+
 module.exports = {
   entry: {
-    app : [
-      'react-hot-loader/patch',
-      'webpack-hot-middleware/client?http://localhost:3000&reload=true',
-      './client/css/app.css',
-      './client/js/app.js'
-    ]
+    app : appEntry
   },
   output: {
     filename: 'js/[name].js',

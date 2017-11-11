@@ -5,7 +5,7 @@
   "description": "The Chat App",
   "main": "server.js",
   "scripts": {
-    "build": "webpack -p --config webpack.config.js --progress",
+    "build": "NODE_ENV=production webpack -p --config webpack.config.js --progress",
     "start:production": "NODE_ENV=production npm start",
     "start": "node --harmony server.js"
   },

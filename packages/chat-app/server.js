@@ -37,8 +37,8 @@ const VideoGrant = AccessToken.VideoGrant
  * query parameter. Generates an autoincrementing id for the user's identity.
  */
 let id = 1
-app.get('/token', function(req, res) {
-  const identity = 'participant' + id
+app.get('/token', (req, res) => {
+  const identity = `participant${id}`
   id++
 
   // Create an access token which we will sign and return to the client,
@@ -47,7 +47,7 @@ app.get('/token', function(req, res) {
     process.env.TWILIO_ACCOUNT_SID,
     process.env.TWILIO_API_KEY,
     process.env.TWILIO_API_SECRET
-  );
+  )
 
   // Assign the generated identity to the token.
   token.identity = identity
@@ -70,6 +70,8 @@ app.get('/chat-app-old.js', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'))
 })
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.listen(PORT, () => {
   log(`now live on ${PORT}`)
