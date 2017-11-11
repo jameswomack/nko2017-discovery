@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "The Marketing Site",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "webpack -p --config webpack.config.js --progress",
     "start:production": "NODE_ENV=production npm start",
