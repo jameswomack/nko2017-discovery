@@ -5,7 +5,7 @@ export default class VideoChat extends React.Component {
   state = {}
 
   componentDidMount () {
-    require('./chat-app-old')()
+    require('./room')()
 
     document.addEventListener('participantConnected', e => {
       const participantId = e.detail
