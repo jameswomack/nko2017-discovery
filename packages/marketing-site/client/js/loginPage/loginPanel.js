@@ -4,10 +4,12 @@ import GHLogo from './ghLogo'
 const LoginPanel = () => {
   return (
     <div className="login-panel">
-      <a className="login-link" href="/auth">
-        Login with Github
-        <GHLogo width={ '30px' } height={ '30px' }/>
-      </a>
+      <div className="button-container">
+        <a className="login-link" href="/auth">
+          Sign Up with Github
+          <GHLogo width={ '30px' } height={ '30px' }/>
+        </a>
+      </div>
     </div>
   )
 }

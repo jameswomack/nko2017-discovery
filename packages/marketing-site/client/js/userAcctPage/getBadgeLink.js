@@ -1,5 +1,11 @@
-export default () => {
+const GetBadgeLink = (props) => {
   return (
-    <input type="text" />
+    <input
+      className="get-badge-link"
+      type="text"
+      value={ props.badgeLink || 'Ye be no maintainer!' }
+    />
   )
 }
+
+export default GetBadgeLink

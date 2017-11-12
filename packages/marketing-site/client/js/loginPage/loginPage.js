@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Masthead from '../masthead'
 import LoginPanel from './loginPanel'
 
 export default class LoginPage extends Component {
@@ -19,10 +18,6 @@ export default class LoginPage extends Component {
   render() {
     return (
       <div className="landing-page">
-        <Masthead
-          showInfo={ this.state.infoPanelOpen }
-          toggleInfoPanel={ this.toggleInfoPanel }
-        />
         <LoginPanel />
       </div>
     )

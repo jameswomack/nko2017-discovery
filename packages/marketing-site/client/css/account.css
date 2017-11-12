@@ -1,0 +1,115 @@
+@import './colors.css';
+
+* {
+  --avatar-width: 12rem;
+  --card-side-pad: .5rem;
+  --card-container-side-pad: 1rem;
+  --form-container-spacer: calc(var(--avatar-width) + (2 * var(--card-side-pad)) + (3 * var(--card-container-side-pad)));
+  --go-button-width: 92%;
+}
+
+.account-page {
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem 0 1rem;
+}
+
+.card-container {
+  float: left;
+  padding: 1rem var(--card-container-side-pad) 2.5em;
+}
+
+.user-card {
+  border: 1px solid grey;
+  padding: .5rem var(--card-side-pad);
+}
+
+.username {
+  display: block;
+  border: 1px solid var(--light-grey);
+  margin: 1px 0 .2rem 0;
+  padding: .35rem 0 .4rem .55rem;
+  background-color: var(--near-white);
+  text-align: left;
+  color: var(--near-black);
+}
+
+.avatar {
+  width: var(--avatar-width);
+  height: 12rem;
+  background-color: var(--light-grey);
+}
+
+.set-office-hours {
+  margin: 0 auto;
+  margin-left: var(--form-container-spacer);
+  padding: .75rem 2rem 0;
+  text-align: center;
+}
+
+.office-hrs-form {
+  display: inline-block;
+  width: 92%;
+}
+
+.office-hrs-form>label {
+  text-align: left;
+}
+
+.office-hrs-form>label>.form-heading {
+  display: inline-block;
+  width: 100%;
+  padding: 0 .5rem;
+  text-align: left;
+}
+
+.set-office-hours textarea {
+  -webkit-appearance: none;
+  margin: .5rem 0;
+  border-radius: .2rem;
+  width: 100%;
+  height: 10rem;
+  padding: .5rem;
+  background-color: var(--light-grey);
+  text-align: left;
+  font-size: .9rem;
+}
+
+.set-office-hours .button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-hrs {
+  -webkit-appearance: none;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+  float: right;
+  margin: 0;
+  height: 2rem;
+  padding: .35rem .5rem;
+  background-color: var(--bright-green);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.set-office-hours textarea:focus {
+  outline: none;
+  background: white;
+}
+
+.get-badge-link {
+  margin: 0 auto 1.5rem;
+  width: calc(var(--go-button-width) - 2rem);
+  line-height: 1.75rem;
+}
+
+.go-button {
+  border-radius: 1rem;
+  margin: 0 auto 1rem;
+  width: var(--go-button-width);
+  height: 4rem;
+  font-size: 1.25rem;
+}

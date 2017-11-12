@@ -1,0 +1,19 @@
+* {
+  --restless-sea: #A6D97A;
+  --sleeping-on-it: #62CCA9;
+  --green: #3D9994;
+  --sweep-me-away: #307391;
+  --marimekko-flower: #274E87;
+
+  --near-white: #fff9f0;
+  --light-grey: #cfe0ec;
+  --bright-green: #A6D97A;
+  --pink: #f53;
+  --darken-green: #a6d97a;
+  --soothing-green: var(--sleeping-on-it);
+  --grey-blue: #bcd;
+  --dark-blue: var(--marimekko-flower);
+  --near-black: #111621;
+
+  --gh-btn-green: #28a745;
+}

@@ -1,0 +1,27 @@
+@import './colors.css';
+
+.masthead {
+  background-color: var(--dark-blue);
+  border-bottom: 1px solid var(--pink);
+  padding: 2rem 0 1rem;
+  color: var(--near-white);
+}
+
+.top-right-corner {
+  position: absolute;
+  top: 2rem; right: 5rem;
+}
+
+.login-mini-button {
+  border-radius: 25%;
+  border: 1px solid grey;
+  /*border-bottom: 1px solid var(--near-black);*/
+  padding: .25rem .35rem;
+  font-size: .8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+button.more-info:focus, button.more-info:active {
+  outline: none;
+}

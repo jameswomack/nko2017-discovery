@@ -1,0 +1,25 @@
+@import './colors.css';
+
+.splash {
+  height: 100vh;
+  padding-top: 7.5rem;
+  background: linear-gradient(15deg, var(--dark-blue) 15%, var(--soothing-green));
+  text-align: center;
+  color: var(--near-white);
+}
+
+.splash-heading, .splash-blurb {
+  text-shadow: 0 2px var(--dark-blue);
+}
+
+.splash-heading {
+  margin-bottom: 2.5rem;
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.splash-blurb {
+  margin: 0 auto;
+  width: 50%;
+  font-size: 2rem;
+}

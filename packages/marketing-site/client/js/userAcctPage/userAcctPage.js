@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Masthead from '../masthead'
 import UserCard from './userCard'
 import OfficeHrsForm from './officeHrsForm'
 import GetBadgeLink from './getBadgeLink'
@@ -13,11 +12,15 @@ export default class UserAcctPage extends Component {
   render() {
     return (
       <div className="account-page">
-        <Masthead />
-        <UserCard username={ this.props.username } userpic={ this.props.pic }/>
+        <UserCard
+          username={ this.props.username }
+          avatar={ this.props.avatar }
+        />
         <OfficeHrsForm />
-        <GetBadgeLink />
-        <button>Start Office Hours</button>
+        <GetBadgeLink
+          badgeLink={ this.props.badgeLink }
+        />
+        <button className="primary-button go-button">Start Office Hours</button>
       </div>
     )
   }

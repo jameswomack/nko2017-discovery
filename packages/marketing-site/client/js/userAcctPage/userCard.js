@@ -1,8 +1,12 @@
-export default (props) => {
+const UserCard = (props) => {
   return (
-    <div className="user-card">
-      <span>{ props.username }</span>
-      <img src={ props.userpic }/>
+    <div className="card-container">
+      <div className="user-card">
+        <span className="username">{ props.username || '<username>' }</span>
+        <img className="avatar" src={ props.avatar }/>
+      </div>
     </div>
   )
 }
+
+export default UserCard

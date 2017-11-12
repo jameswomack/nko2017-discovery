@@ -1,0 +1,31 @@
+@import './colors.css';
+
+.login-panel {
+  display: inline-block;
+  margin-top: 3.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--grey-blue);
+  width: fit-content;
+  height: 12rem;
+  padding: 2.5rem;
+}
+
+.login-panel .button-container {
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  height: 100%;
+  padding-bottom: .75rem;
+}
+
+.login-link {
+  vertical-align: middle;
+  border-radius: .5rem;
+  padding: .65rem;
+  background-color: var(--bright-green);
+}
+
+#ghLogo {
+  margin-left: .5rem;
+  vertical-align: middle;
+}
