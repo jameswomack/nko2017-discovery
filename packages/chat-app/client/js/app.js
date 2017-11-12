@@ -1,24 +1,18 @@
 import ReactDOM from 'react-dom'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
+import VideoChat from './VideoChat'
 
 const App = () => {
-  return <div>
-    <h1>Chat App!</h1>
-    <div id="remote-media"></div>
-    <div id="controls">
-      <div id="preview">
-        <p className="instructions">Hello Beautiful</p>
-        <div id="local-media"></div>
-        <button id="button-preview">Preview My Camera</button>
-      </div>
-      <div id="room-controls">
-        <p className="instructions">Room Name:</p>
-        <input id="room-name" type="text" placeholder="Enter a room name" />
-        <button id="button-join">Join Room</button>
-        <button id="button-leave">Leave Room</button>
-      </div>
-      <div id="log"></div>
+  return <Router>
+    <div>
+      <Route path="/" component={VideoChat} exact />
+      <Route path="/host/:host" component={VideoChat} />
+      <Route path="/join/:host/:join" component={VideoChat} />
     </div>
-  </div>
+  </Router>
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
