@@ -22,7 +22,7 @@ div#remote-media video {
   border: 1px solid #272726;
   margin: 3em 2em;
   height: 70%;
-  max-width: 27% !important;
+  /*max-width: 27% !important*/;
   background-color: #272726;
   background-repeat: no-repeat;
 }
@@ -141,4 +141,59 @@ div#controls div#log p {
   margin-left: 1em;
   text-indent: -1.25em;
   width: 90%;
+}
+
+/* begin new styles */
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+* {
+  --restless-sea: #A6D97A;
+  --sleeping-on-it: #62CCA9;
+  --green: #3D9994;
+  --sweep-me-away: #307391;
+  --marimekko-flower: #274E87;
+  --near-black: #111621;
+}
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+body {
+  background: none;
+}
+
+div#controls div#preview div#local-media {
+  background-color: #272726;
+}
+
+div#controls p.instructions {
+  color: black;
+}
+
+div#controls div#room-controls button {
+  color: black;
+}
+
+div#controls div#preview button#button-preview {
+  border: 1px solid #686865;
+}
+
+.title-header {
+  background-color: var(--sleeping-on-it);
+  padding: 1rem;
+  border-bottom: .5rem solid var(--marimekko-flower);
+}
+
+div#remote-media video {
+  height: 100%;
+  width: 60%;
+  margin: 0px;
+  margin-bottom: 1rem;
+  border: none;
 }

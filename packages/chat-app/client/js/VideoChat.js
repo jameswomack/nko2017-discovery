@@ -20,6 +20,7 @@ export default class VideoChat extends React.Component {
     })
 
     document.addEventListener('participantConnected', e => {
+      document.getElementById('preview').style.display = 'none'
       const participantId = e.detail
       const activeParticipantId = document.getElementById('active-participant').dataset.participantId
 
@@ -28,6 +29,21 @@ export default class VideoChat extends React.Component {
           participantId
         })
     })
+
+    document.addEventListener('participantDisconnected', e => {
+      document.getElementById('preview').style.display = 'block'
+      this.setState({
+        participantId: undefined
+      })
+    })
+  }
+
+  renderStatus() {
+    if (this.state.participantId) {
+      return <p>
+        {`You're connected with: ${this.state.participantId}`}
+      </p>
+    }
   }
 
   render () {
@@ -47,12 +63,12 @@ export default class VideoChat extends React.Component {
     const activeParticipantAttrs = Object.entries(activeParticipant).reduce((o, [ k,v ]) => ({ ...o, [`data-${dasherize(k)}`]:v }), { })
 
     return <div>
-      <h1>Chat App!</h1>
+      <h1 className="title-header">Office Hours</h1>
       <div id="remote-container">
-        <p className="instructions">
-          {this.state.participantId ? `You're connected with: ${this.state.participantId}` : null}
-        </p>
         <div id="remote-media"></div>
+      </div>
+      <div>
+        { this.renderStatus() }
       </div>
       <div id="controls">
         <div id="preview">

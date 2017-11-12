@@ -111,6 +111,8 @@ module.exports = function () {
         Video.connect(data.token, connectOptions).then(roomJoined, (error) => {
           log(`Could not connect to Twilio: ${error.message}`)
         })
+
+        document.getElementById('preview').style.display = 'none'
       }
     })
   }
@@ -159,6 +161,8 @@ module.exports = function () {
     // When a Participant leaves the Room, detach its Tracks.
     room.on('participantDisconnected', (participant) => {
       log(`Participant '${participant.identity}' left the room`)
+      const event = new CustomEvent('participantDisconnected', { detail: participant.identity })
+      document.dispatchEvent(event)
       detachParticipantTracks(participant)
     })
 
@@ -228,6 +232,7 @@ module.exports = function () {
     // Bind button to leave Room.
     document.getElementById('button-leave').onclick = function() {
       log('Leaving room...')
+      document.getElementById('preview').style.display = 'block'
       activeRoom.disconnect()
     }
     return {
