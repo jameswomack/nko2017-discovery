@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700');
 @import './colors.css';
 @import './splash.css';
 @import './masthead.css';
@@ -15,6 +15,7 @@
 
 h1 {
   font-size: 3rem;
+  font-weight: normal;
   margin-bottom: .75rem;
 }
 
@@ -42,11 +43,50 @@ button:focus, button:active {
   background-color: var(--dark-blue);
 }
 
-.secondary-button {
+#hackbit-vote-widget {
+  text-align: center;
+}
+
+#hackbit-vote-widget * {
+  background: none;
+  color: inherit;
+  text-shadow: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  vertical-align: bottom;
+}
+
+#hackbit-vote-widget *:hover {
+  box-shadow: none;
+}
+
+#hackbit-vote-widget a {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+#hackbit-vote-widget a.hb-link {
+  font-size: 0;
+}
+
+.secondary-button, #hackbit-vote-widget.secondary-button {
+  -webkit-appearance: none;
+  margin-right: .5rem;
   background-color: var(--light-grey);
 }
 
-.secondary-button:active {
+.secondary-button:active, #hackbit-vote-widget.secondary-button:active {
   box-shadow: 0 1px var(--dark-blue) inset;
   background-color: var(--grey-blue);
+}
+
+.mini-button {
+  border-radius: .25rem;
+  padding: .25rem .35rem;
+  font-size: .8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--near-black);
 }

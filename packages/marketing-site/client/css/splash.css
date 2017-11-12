@@ -1,9 +1,14 @@
 @import './colors.css';
 
 .splash {
+  --heading-font-size: 8.5rem;
+  --heading-margin-bottom: 2.5rem;
+  --blurb-font-size: 2rem;
+  --off-white: #fcf6d0;
+  margin-bottom: 2.5rem;
   height: 100vh;
-  padding-top: 7.5rem;
-  background: linear-gradient(15deg, var(--dark-blue) 15%, var(--soothing-green));
+  padding-top: calc(50vh - var(--heading-font-size) - var(--blurb-font-size) - var(--heading-margin-bottom));
+  background: linear-gradient(7.5deg, var(--dark-blue) 5%, var(--soothing-green));
   text-align: center;
   color: var(--near-white);
 }
@@ -13,13 +18,31 @@
 }
 
 .splash-heading {
-  margin-bottom: 2.5rem;
-  font-weight: bold;
-  font-size: 5rem;
+  margin-bottom: var(--heading-margin-bottom);
+  font-size: var(--heading-font-size);
+  font-weight: lighter;
 }
 
 .splash-blurb {
   margin: 0 auto;
   width: 50%;
-  font-size: 2rem;
+  font-weight: lighter;
+  font-size: var(--blurb-font-size);
+  color: var(--off-white);
+}
+
+.splash-page ul {
+  text-align: center;
+}
+
+.splash-bullet {
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+  color: var(--dark-blue);
+}
+
+.splash-list-separator {
+  margin: 0 auto 1.5rem;
+  border: 1px solid var(--pink);
+  width: 7.5rem;
 }

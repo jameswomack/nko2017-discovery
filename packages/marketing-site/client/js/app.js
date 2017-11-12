@@ -36,16 +36,16 @@ export default class App extends Component {
       badgeLink = this.state.userObj && this.state.userObj.badge
     return (
       <div className="page">
+        <Masthead mini={ this.state.firstTime }/>
         { this.state.firstTime ?
           <Splash /> :
-          <Masthead /> }
-        { this.state.isLoggedIn ?
-          <UserAcctPage
-            username={ username }
-            avatar={ avatar }
-            badgeLink={ badgeLink }
-          /> :
-          <LoginPage /> }
+          this.state.isLoggedIn ?
+            <UserAcctPage
+              username={ username }
+              avatar={ avatar }
+              badgeLink={ badgeLink }
+            /> :
+            <LoginPage /> }
       </div>
     )
   }

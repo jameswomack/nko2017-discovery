@@ -7,19 +7,21 @@
   color: var(--near-white);
 }
 
+.mini-masthead {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: .25rem;
+  text-align: right;
+}
+
+.masthead .mini-button {
+  vertical-align: top;
+}
+
 .top-right-corner {
   position: absolute;
   top: 2rem; right: 5rem;
-}
-
-.login-mini-button {
-  border-radius: 25%;
-  border: 1px solid grey;
-  /*border-bottom: 1px solid var(--near-black);*/
-  padding: .25rem .35rem;
-  font-size: .8rem;
-  font-weight: bold;
-  text-transform: uppercase;
 }
 
 button.more-info:focus, button.more-info:active {
