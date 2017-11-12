@@ -1,0 +1,27 @@
+{
+  "name": "nko2017-discovery",
+  "version": "1.0.0",
+  "description": "nko2017-operations",
+  "main": "index.js",
+  "scripts": {
+    "start": "bash ./bin/start.sh",
+    "postinstall": "./bin/build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hackbit/nko2017-discovery.git"
+  },
+  "keywords": [
+    "nko",
+    "ops"
+  ],
+  "author": "Ben Coe <ben@npmjs.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hackbit/nko2017-discovery/issues"
+  },
+  "homepage": "https://github.com/Hackbit/nko2017-discovery#readme",
+  "dependencies": {
+    "http-proxy": "^1.16.2"
+  }
+}

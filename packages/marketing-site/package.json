@@ -14,7 +14,7 @@
   },
   "author": "James J. Womack",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.0",
@@ -30,9 +30,7 @@
     "style-loader": "^0.19.0",
     "webpack": "^3.0.0",
     "webpack-dev-middleware": "^1.11.0",
-    "webpack-hot-middleware": "^2.18.0"
-  },
-  "dependencies": {
+    "webpack-hot-middleware": "^2.18.0",
     "body-parser": "^1.18.2",
     "connect-redis": "^3.3.2",
     "dotenv": "^4.0.0",
