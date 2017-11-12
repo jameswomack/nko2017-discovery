@@ -1,5 +1,5 @@
 name = "chat-app.nko"
-image = "bcoe/nko-chat-app:wire-up-video_1.0.0_25_765a8458"
+image = "bcoe/nko-chat-app:1.0.0_19_7dc2a291"
 
 [scale]
   containers = 1
