@@ -148,6 +148,11 @@ app.get('/v1/users/current', (req, res) => {
     })
   } else {
     client.hgetall(req.session.user, (err, user) => {
+      if (user === null) {
+        return res.status(500).json({
+          error: Error('session not found')
+        })
+      }
       if (err) {
         return res.status(500).json({
           error: err.message

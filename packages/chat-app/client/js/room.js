@@ -122,7 +122,6 @@ module.exports = function () {
     window.room = activeRoom = room
 
     log(`Joined as '${identity}'`)
-    document.getElementById('button-join').style.display = 'none'
     document.getElementById('button-leave').style.display = 'inline'
 
     // Attach LocalParticipant's Tracks, if not already attached.
@@ -178,7 +177,6 @@ module.exports = function () {
       detachParticipantTracks(room.localParticipant)
       room.participants.forEach(detachParticipantTracks)
       activeRoom = null
-      document.getElementById('button-join').style.display = 'inline'
       document.getElementById('button-leave').style.display = 'none'
     })
   }
@@ -228,7 +226,6 @@ module.exports = function () {
     return response.json()
   }).then(data => {
     identity = data.identity
-    document.getElementById('room-controls').style.display = 'block'
     // Bind button to leave Room.
     document.getElementById('button-leave').onclick = function() {
       log('Leaving room...')

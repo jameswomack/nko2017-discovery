@@ -75,10 +75,7 @@ export default class VideoChat extends React.Component {
           <p className="instructions">Hello {activeParticipant.isJoin ? params.join : params.host}</p>
           <div id="local-media"></div>
           <button id="button-preview">Preview My Camera</button>
-        </div>
-        <div id="room-controls">
-          <button id="button-join">Join Room</button>
-          <button id="button-leave">Leave Room</button>
+          <button id="button-leave">End Office Hours</button>
         </div>
         <div id="log"></div>
         <span id="active-participant" {...activeParticipantAttrs}></span>
