@@ -16,6 +16,7 @@ const packageJSON = require('./package')
 
 const app = express()
 const PORT = packageJSON.config.port
+const isProduction = process.NODE_ENV === 'production'
 
 const log = (...msgs) => console.log(`[${packageJSON.name}]`, ...msgs)
 
@@ -26,14 +27,21 @@ app.use(session({
   }),
   secret: process.env.SESSION_SECRET || 'keyboard cat',
   cookie: {
-    secure: process.NODE_ENV === 'production' ? true : false,
+    secure: isProduction,
     sameSite: 'lax'
   },
   resave: true,
   saveUninitialized: true
 }))
 
-if (process.env.NODE_ENV !== 'production') {
+const ensureLoggedIn = (req, res) => {
+  if (!req.session.user) 
+    return res.status(404).json({
+      error: 'not found'
+    })
+}
+
+if (!isProduction) {
   const webpack = require('webpack')
   const webpackDevMiddleware = require('webpack-dev-middleware')
   const webpackHotMiddleware = require('webpack-hot-middleware')
@@ -48,6 +56,17 @@ if (process.env.NODE_ENV !== 'production') {
 
   app.use(webpackHotMiddleware(compiler))
 }
+
+
+const getHost = (userId, cb) =>
+  client.hgetall(userId, (err, user) => {
+    const defaultRoomName = `${userId}_${Date.now}`
+    cb(err, Object.assign({}, user, {
+      badge: '',
+      officeHoursBlurb: '',
+      roomName: defaultRoomName
+    }))
+  })
 
 
 const AccessToken = twilio.jwt.AccessToken
@@ -78,55 +97,18 @@ app.post('/token', bodyParser.json(), (req, res) => {
   token.addGrant(grant)
 
   // Serialize the token to a JWT string and include it in a JSON response.
-  res.send({
-    identity,
-    token: token.toJwt()
+  getHost(req.body.hostId, (err, host) => {
+    if (!err) 
+      res.send({
+        ...host,
+        identity,
+        token: token.toJwt()
+      })
+    else
+      return res.status(500).json({
+        error: err.message
+      })
   })
-})
-
-app.get('/user', (req, res) => {
-  if (!req.session.user) 
-    return res.status(404).json({
-      error: 'not found'
-    })
-  else 
-    client.hgetall(req.session.user, (err, user) => {
-      if (err) 
-        return res.status(500).json({
-          error: err.message
-        })
-      else 
-        return res.status(200).json({
-          name: user.name,
-          avatar: user.avatar,
-          email: user.email,
-          roomName: user.roomName,
-          bio: user.bio,
-          officeHoursBlurb: user.officeHoursBlurb || '',
-          badge: user.badge || ''
-        })
-      
-    })
-})
-
-app.post('/room', bodyParser.json(), (req, res) => {
-  if (!req.session.user) 
-    return res.status(404).json({
-      error: 'not found'
-    })
-  else 
-    client.hset(req.session.user, [ 'room', req.body.roomName ], err => {
-      if (err) 
-        return res.status(500).json({
-          error: err.message
-        })
-      else 
-        return res.status(200).json({
-          ok: true,
-          roomName: req.body.roomName 
-        })
-      
-    })
 })
 
 app.use(express.static(path.join(__dirname, 'public')))

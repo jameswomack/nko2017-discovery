@@ -32,6 +32,8 @@ export default class VideoChat extends React.Component {
         }
       }, { })
 
+    activeParticipant.hostId = params.host
+
     const activeParticipantAttrs = Object.entries(activeParticipant).reduce((o, [ k,v ]) => ({ ...o, [`data-${dasherize(k)}`]:v }), { })
 
     return <div>

@@ -41,29 +41,27 @@ module.exports = function () {
   // from the room, if joined.
   window.addEventListener('beforeunload', leaveRoomIfJoined)
 
-  const participantId = document.getElementById('active-participant').dataset.participantId
+  const activeParticipant = document.getElementById('active-participant').dataset
 
   // Obtain a token from the server in order to connect to the Room.
+  // Get the room name for the host
   fetch('/token', {
     method: 'POST',
-    body: JSON.stringify({
-      participantId
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    body: JSON.stringify(activeParticipant),
+    headers: { 'Content-Type': 'application/json' },
     credentials: 'include'
-  }).then(response => {
-    return response.json()
-  }).then(data => {
+  }).then(response =>
+    response.json()
+  ).then(data => {
     identity = data.identity
     document.getElementById('room-controls').style.display = 'block'
 
     // Bind button to join Room.
     document.getElementById('button-join').onclick = function() {
-      roomName = document.getElementById('room-name').value
+      roomName = data.roomName
+      document.getElementById('room-name').value = roomName
       if (!roomName) {
-        alert('Please enter a room name.')
+        alert('Failed to create a room name.')
         return
       }
 
