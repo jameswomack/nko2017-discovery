@@ -5,7 +5,19 @@ export default class VideoChat extends React.Component {
   state = {}
 
   componentDidMount () {
-    require('./room')()
+    let host
+    let join
+    try {
+      host = this.props.match.params.host
+      join = this.props.match.params.join
+    } catch (err) {
+      console.warn(err)
+    }
+
+    require('./room')().then(room => {
+      if (join) room.join(host)
+      else if (host) room.host()
+    })
 
     document.addEventListener('participantConnected', e => {
       const participantId = e.detail
@@ -19,7 +31,7 @@ export default class VideoChat extends React.Component {
   }
 
   render () {
-    const { location : { pathname }, match : {  params } } = this.props
+    const { location : { pathname }, match : { params } } = this.props
 
     const activeParticipant = ['Host', 'Join']
       .reduce((_activeParticipant, ParticipantType) => {
@@ -49,8 +61,6 @@ export default class VideoChat extends React.Component {
           <button id="button-preview">Preview My Camera</button>
         </div>
         <div id="room-controls">
-          <p className="instructions">Room Name:</p>
-          <input id="room-name" type="text" placeholder="Enter a room name" />
           <button id="button-join">Join Room</button>
           <button id="button-leave">Leave Room</button>
         </div>

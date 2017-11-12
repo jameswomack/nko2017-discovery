@@ -43,53 +43,77 @@ module.exports = function () {
 
   const participantId = document.getElementById('active-participant').dataset.participantId
 
-  // Obtain a token from the server in order to connect to the Room.
-  fetch('/token', {
-    method: 'POST',
-    body: JSON.stringify({
-      participantId
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include'
-  }).then(response => {
-    return response.json()
-  }).then(data => {
-    identity = data.identity
-    document.getElementById('room-controls').style.display = 'block'
+  function hostRoom (data) {
+    return fetch('/chat/room', {
+      method: 'POST',
+      body: JSON.stringify({
+        redirect: window.location.href
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    }).then(resp => {
+      return resp.json()
+    }).then(resp => {
+      if (!resp.ok) {
+        if (resp.redirect) {
+          window.location.href = resp.redirect
+        }
+      } else {
+        log(`Joining room '${resp.roomName}'...`)
+        const connectOptions = {
+          name: resp.roomName,
+          logLevel: 'debug'
+        }
 
-    // Bind button to join Room.
-    document.getElementById('button-join').onclick = function() {
-      roomName = document.getElementById('room-name').value
-      if (!roomName) {
-        alert('Please enter a room name.')
-        return
+        if (previewTracks)
+          connectOptions.tracks = previewTracks
+
+        // Join the Room with the token from the server and the
+        // LocalParticipant's Tracks.
+        Video.connect(data.token, connectOptions).then(roomJoined, (error) => {
+          log(`Could not connect to Twilio: ${error.message}`)
+        })
       }
+    })
+  }
 
-      log(`Joining room '${roomName}'...`)
-      const connectOptions = {
-        name: roomName,
-        logLevel: 'debug'
+  function joinRoom (user, data) {
+    return fetch('/chat/room/' + user, {
+      method: 'POST',
+      body: JSON.stringify({
+        redirect: window.location.href
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    }).then(resp => {
+      return resp.json()
+    }).then(resp => {
+      if (!resp.ok) {
+        if (resp.redirect) {
+          window.location.href = resp.redirect
+        }
+      } else {
+        log(`Joining room '${resp.roomName}'...`)
+        const connectOptions = {
+          name: resp.roomName,
+          logLevel: 'debug'
+        }
+
+        if (previewTracks)
+          connectOptions.tracks = previewTracks
+
+        // Join the Room with the token from the server and the
+        // LocalParticipant's Tracks.
+        Video.connect(data.token, connectOptions).then(roomJoined, (error) => {
+          log(`Could not connect to Twilio: ${error.message}`)
+        })
       }
-
-      if (previewTracks) 
-        connectOptions.tracks = previewTracks
-      
-
-      // Join the Room with the token from the server and the
-      // LocalParticipant's Tracks.
-      Video.connect(data.token, connectOptions).then(roomJoined, (error) => {
-        log(`Could not connect to Twilio: ${error.message}`)
-      })
-    }
-
-    // Bind button to leave Room.
-    document.getElementById('button-leave').onclick = function() {
-      log('Leaving room...')
-      activeRoom.disconnect()
-    }
-  })
+    })
+  }
 
   // Successfully connected!
   function roomJoined(room) {
@@ -101,9 +125,9 @@ module.exports = function () {
 
     // Attach LocalParticipant's Tracks, if not already attached.
     const localPreviewContainer = document.getElementById('local-media')
-    if (!localPreviewContainer.querySelector('video')) 
+    if (!localPreviewContainer.querySelector('video'))
       attachParticipantTracks(room.localParticipant, localPreviewContainer)
-    
+
 
     // Attach the Tracks of the Room's Participants.
     room.participants.forEach((participant) => {
@@ -142,11 +166,11 @@ module.exports = function () {
     // of all Participants, including that of the LocalParticipant.
     room.on('disconnected', () => {
       log('Left')
-      if (previewTracks) 
+      if (previewTracks)
         previewTracks.forEach((track) => {
           track.stop()
         })
-      
+
       detachParticipantTracks(room.localParticipant)
       room.participants.forEach(detachParticipantTracks)
       activeRoom = null
@@ -164,9 +188,9 @@ module.exports = function () {
     localTracksPromise.then((tracks) => {
       window.previewTracks = previewTracks = tracks
       const previewContainer = document.getElementById('local-media')
-      if (!previewContainer.querySelector('video')) 
+      if (!previewContainer.querySelector('video'))
         attachTracks(tracks, previewContainer)
-      
+
     }).catch((error) => {
       console.error('Unable to access local media', error)
       log('Unable to access Camera and Microphone')
@@ -182,7 +206,37 @@ module.exports = function () {
 
   // Leave Room.
   function leaveRoomIfJoined() {
-    if (activeRoom) 
+    if (activeRoom)
       activeRoom.disconnect()
   }
+
+  // Obtain a token from the server in order to connect to the Room.
+  return fetch('/chat/token', {
+    method: 'POST',
+    body: JSON.stringify({
+      participantId
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  }).then(response => {
+    return response.json()
+  }).then(data => {
+    identity = data.identity
+    document.getElementById('room-controls').style.display = 'block'
+    // Bind button to leave Room.
+    document.getElementById('button-leave').onclick = function() {
+      log('Leaving room...')
+      activeRoom.disconnect()
+    }
+    return {
+      host: () => {
+        return hostRoom(data)
+      },
+      join: (user) => {
+        return joinRoom(user, data)
+      }
+    }
+  })
 }

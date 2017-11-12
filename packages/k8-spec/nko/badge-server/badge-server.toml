@@ -1,5 +1,5 @@
 name = "badge-server.nko"
-image = "bcoe/nko-badges-server:redis-example_1.0.0_6_22439523"
+image = "bcoe/nko-badges-server:implement-badges_1.0.0_16_868fdaf9"
 
 [scale]
   containers = 1
@@ -10,6 +10,11 @@ image = "bcoe/nko-badges-server:redis-example_1.0.0_6_22439523"
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "badge-server"
   REDIS_URL = "redis://redis.data"
+  [env.shared-config]
+    TWILIO_ACCOUNT_SID = "twilio_sid"
+    TWILIO_API_KEY = "twilio_key"
+    TWILIO_API_SECRET = "twilio_secret"
+    SESSION_SECRET = "session_secret"
 
 [ports]
   http = "8080"

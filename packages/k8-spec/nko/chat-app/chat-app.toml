@@ -1,5 +1,5 @@
 name = "chat-app.nko"
-image = "bcoe/nko-chat-app:deploy-react_1.0.0_14_0e508e1b"
+image = "bcoe/nko-chat-app:wire-up-video_1.0.0_25_765a8458"
 
 [scale]
   containers = 1
@@ -10,10 +10,13 @@ image = "bcoe/nko-chat-app:deploy-react_1.0.0_14_0e508e1b"
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "chat-app"
   NODE_ENV = "production"
+  REDIS_URL = "redis://redis.data"
   [env.shared-config]
     TWILIO_ACCOUNT_SID = "twilio_sid"
     TWILIO_API_KEY = "twilio_key"
     TWILIO_API_SECRET = "twilio_secret"
+    LOGIN_REDIRECT = "login_redirect"
+    SESSION_SECRET = "session_secret"
 
 [ports]
   http = "8081"

@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     filename: 'js/[name].js',
-    publicPath: '/',
+    publicPath: '/chat',
     path: `${CWD}/public`
   },
   module: {

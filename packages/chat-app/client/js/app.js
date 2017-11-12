@@ -6,9 +6,8 @@ import {
 import VideoChat from './VideoChat'
 
 const App = () => {
-  return <Router>
+  return <Router basename='/chat'>
     <div>
-      <Route path="/" component={VideoChat} exact />
       <Route path="/host/:host" component={VideoChat} />
       <Route path="/join/:host/:join" component={VideoChat} />
     </div>

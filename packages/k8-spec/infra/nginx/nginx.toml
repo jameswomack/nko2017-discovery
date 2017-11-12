@@ -4,7 +4,7 @@ command = "kickerd --file /etc/nginx/.kicker.toml --etcd http://etcd.data:2379"
 
 [scale]
   containers = 2
-  ram = "> 50 Mi < 200 Mi"
+  ram = "> 65 Mi < 200 Mi"
   cpu = "> 1% < 20%"
 
 [ports]

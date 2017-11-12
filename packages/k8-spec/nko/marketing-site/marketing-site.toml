@@ -1,5 +1,5 @@
 name = "marketing-site.nko"
-image = "bcoe/nko-marketing-site:1.0.0_11_a0a37dbc"
+image = "bcoe/nko-marketing-site:implement-badges_1.0.0_17_1dd0a218"
 
 [scale]
   containers = 1
@@ -10,6 +10,14 @@ image = "bcoe/nko-marketing-site:1.0.0_11_a0a37dbc"
   ETCD = "etcd.data:2379"
   SERVICE_NAME = "marketing-site"
   NODE_ENV = "production"
+  REDIS_URL = "redis://redis.data"
+  # [env.shared-config]
+  #  GITHUB_CLIENT_ID = "github_client_id"
+  #  GITHUB_CLIENT_SECRET = "github_client_secret"
+  #  SESSION_SECRET = "session_secret"
+  #  GITHUB_CALLBACK = "github_callback"
+
+
 
 [ports]
   http = "8082"

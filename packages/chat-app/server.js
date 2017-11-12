@@ -19,6 +19,8 @@ const PORT = packageJSON.config.port
 
 const log = (...msgs) => console.log(`[${packageJSON.name}]`, ...msgs)
 
+const uuid = require('uuid')
+
 // store sessions in redis.
 app.use(session({
   store: new RedisStore({
@@ -58,7 +60,7 @@ const VideoGrant = AccessToken.VideoGrant
  * query parameter. Generates an autoincrementing id for the user's identity.
  */
 let id = 1
-app.post('/token', bodyParser.json(), (req, res) => {
+app.post('/chat/token', bodyParser.json(), (req, res) => {
   const identity = req.body.participantId || `participant${id}`
   id++
 
@@ -84,18 +86,18 @@ app.post('/token', bodyParser.json(), (req, res) => {
   })
 })
 
-app.get('/user', (req, res) => {
-  if (!req.session.user) 
+app.get('/chat/user', (req, res) => {
+  if (!req.session.user)
     return res.status(404).json({
       error: 'not found'
     })
-  else 
+  else
     client.hgetall(req.session.user, (err, user) => {
-      if (err) 
+      if (err)
         return res.status(500).json({
           error: err.message
         })
-      else 
+      else
         return res.status(200).json({
           name: user.name,
           avatar: user.avatar,
@@ -105,31 +107,66 @@ app.get('/user', (req, res) => {
           officeHoursBlurb: user.officeHoursBlurb || '',
           badge: user.badge || ''
         })
-      
+
     })
 })
 
-app.post('/room', bodyParser.json(), (req, res) => {
-  if (!req.session.user) 
+// create a room to host the chat in.
+app.post('/chat/room', bodyParser.json(), (req, res) => {
+  if (!req.session.user) {
+    req.session.redirect = req.body.redirect
     return res.status(404).json({
-      error: 'not found'
+      error: 'not found',
+      redirect: process.env.LOGIN_REDIRECT
     })
-  else 
-    client.hset(req.session.user, [ 'room', req.body.roomName ], err => {
-      if (err) 
+  } else {
+    const roomName = uuid.v4()
+    client.hmset(req.session.user, [ 'room', roomName ], err => {
+      if (err) {
         return res.status(500).json({
           error: err.message
         })
-      else 
+      } else {
         return res.status(200).json({
           ok: true,
-          roomName: req.body.roomName 
+          roomName: roomName
         })
-      
+      }
     })
+  }
+})
+
+// grab the current room that a maintainer is in.
+app.post('/chat/room/:user', bodyParser.json(), (req, res) => {
+  if (!req.session.user) {
+    req.session.redirect = req.body.redirect
+    return res.status(404).json({
+      error: 'not found',
+      redirect: process.env.LOGIN_REDIRECT
+    })
+  } else {
+    client.hgetall(req.params.user, (err, resp) => {
+      if (err) {
+        return res.status(500).json({
+          error: err.message
+        })
+      } else {
+        return res.status(200).json({
+          ok: true,
+          roomName: resp.room
+        })
+      }
+    })
+  }
 })
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('/chat/js/app.js', (req, res) => {
+    res.sendFile(path.resolve(process.cwd(), 'public', 'js', 'app.js'))
+  })
+}
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'))
@@ -138,5 +175,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   log(`now live on ${PORT}`)
 
-  require('opn')(`http://localhost:${PORT}`)
+  require('opn')(`http://127.0.0.1:${PORT}`)
 })

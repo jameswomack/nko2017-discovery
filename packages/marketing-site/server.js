@@ -92,23 +92,30 @@ app.get('/callback', (req, res) => {
       return res.status(400).json('Authentication failed')
     }
 
-    const token = oauth2.accessToken.create(result)
-    github.authenticate({
-      type: 'oauth',
-      token: token.token.access_token
-    })
-
-    github.users.get({})
-      .then(rawUser => {
-        return saveUser(rawUser, token.token.access_token)
-      }).then((user) => {
-        req.session.user = user.name
-        return res.redirect('/')
-      }).catch(err => {
-        return res.status(500).json({
-          error: err.message
-        })
+    try {
+      const token = oauth2.accessToken.create(result)
+      github.authenticate({
+        type: 'oauth',
+        token: token.token.access_token
       })
+      github.users.get({})
+        .then(rawUser => {
+          return saveUser(rawUser, token.token.access_token)
+        }).then((user) => {
+          req.session.user = user.name
+          const redirect = req.session.redirect || '/'
+          req.session.redirect = null
+          return res.redirect(redirect)
+        }).catch(err => {
+          return res.status(500).json({
+            error: err.message
+          })
+        })
+    } catch (err) {
+      return res.status(500).json({
+        error: err.message
+      })
+    }
   })
 })
 
@@ -124,8 +131,9 @@ function saveUser (rawUser, authToken) {
   Object.keys(user).forEach(key => {
     update.push(key, user[key])
   })
+
   return new Promise((resolve, reject) => {
-    client.hset(user.name, update, (err, res) => {
+    client.hmset(user.name, update, (err, res) => {
       if (err) return reject(err)
       else return resolve(user)
     })
@@ -134,7 +142,7 @@ function saveUser (rawUser, authToken) {
 
 // API endpoints.
 app.get('/v1/users/current', (req, res) => {
-  if (!req.session.user) {
+  if (!req.session || !req.session.user) {
     return res.status(404).json({
       error: 'not found'
     })
