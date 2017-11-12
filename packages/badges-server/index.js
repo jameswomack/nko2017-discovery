@@ -14,7 +14,7 @@ const twilio = new Twilio(apiKeySid, apiKeySecret, {accountSid: accountSid});
 app.get('/badge/:user', (req, res) => {
   res.setHeader('Content-Type', 'image/svg+xml')
   client.hgetall(req.params.user, (err, user) => {
-    if (err) return res.sendFile(path.resolve('./images/red.svg'))
+    if (err || user === null) return res.sendFile(path.resolve('./images/red.svg'))
     if (!user.room) return res.sendFile(path.resolve('./images/red.svg'))
 
     twilio.video.rooms(user.room).fetch().then(room => {

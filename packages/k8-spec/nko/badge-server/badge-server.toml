@@ -1,5 +1,5 @@
 name = "badge-server.nko"
-image = "bcoe/nko-badges-server:implement-badges_1.0.0_16_868fdaf9"
+image = "bcoe/nko-badges-server:badges_1.0.0_17_3b7c2ec8"
 
 [scale]
   containers = 1
