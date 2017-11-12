@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Masthead from './masthead'
+import Masthead from '../masthead'
 import LoginPanel from './loginPanel'
 
 export default class LoginPage extends Component {
