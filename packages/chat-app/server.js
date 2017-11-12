@@ -1,17 +1,37 @@
-// File is slightly modified from the twilio video quickstart
-// Load Twilio configuration from .env config file into process.env
+// load Twilio & Redis configuration from .env config file into process.env
 require('dotenv').load()
 
 const twilio = require('twilio')
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
+
+// redis-backed sessions for fun and profit.
+// https://github.com/tj/connect-redis
+const client = require('redis').createClient(process.env.REDIS_URL)
+const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
+
 const packageJSON = require('./package')
 
 const app = express()
 const PORT = packageJSON.config.port
 
 const log = (...msgs) => console.log(`[${packageJSON.name}]`, ...msgs)
+
+// store sessions in redis.
+app.use(session({
+  store: new RedisStore({
+    client: client
+  }),
+  secret: process.env.SESSION_SECRET || 'keyboard cat',
+  cookie: {
+    secure: process.NODE_ENV === 'production' ? true : false,
+    sameSite: 'lax'
+  },
+  resave: true,
+  saveUninitialized: true
+}))
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack')
@@ -62,6 +82,51 @@ app.post('/token', bodyParser.json(), (req, res) => {
     identity,
     token: token.toJwt()
   })
+})
+
+app.get('/user', (req, res) => {
+  if (!req.session.user) 
+    return res.status(404).json({
+      error: 'not found'
+    })
+  else 
+    client.hgetall(req.session.user, (err, user) => {
+      if (err) 
+        return res.status(500).json({
+          error: err.message
+        })
+      else 
+        return res.status(200).json({
+          name: user.name,
+          avatar: user.avatar,
+          email: user.email,
+          roomName: user.roomName,
+          bio: user.bio,
+          officeHoursBlurb: user.officeHoursBlurb || '',
+          badge: user.badge || ''
+        })
+      
+    })
+})
+
+app.post('/room', bodyParser.json(), (req, res) => {
+  if (!req.session.user) 
+    return res.status(404).json({
+      error: 'not found'
+    })
+  else 
+    client.hset(req.session.user, [ 'room', req.body.roomName ], err => {
+      if (err) 
+        return res.status(500).json({
+          error: err.message
+        })
+      else 
+        return res.status(200).json({
+          ok: true,
+          roomName: req.body.roomName 
+        })
+      
+    })
 })
 
 app.use(express.static(path.join(__dirname, 'public')))

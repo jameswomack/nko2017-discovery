@@ -38,11 +38,14 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "dependencies": {
+    "connect-redis": "3.3.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "express-session": "1.15.6",
     "prelude-ls": "1.1.2",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
+    "redis": "2.8.0",
     "twilio": "^3.9.2"
   }
 }

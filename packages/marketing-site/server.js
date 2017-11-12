@@ -148,6 +148,7 @@ app.get('/v1/users/current', (req, res) => {
         return res.status(200).json({
           name: user.name,
           avatar: user.avatar,
+          roomName: user.roomName,
           email: user.email,
           bio: user.bio,
           officeHoursBlurb: user.officeHoursBlurb || '',
