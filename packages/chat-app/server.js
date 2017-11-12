@@ -114,10 +114,9 @@ app.get('/chat/user', (req, res) => {
 // create a room to host the chat in.
 app.post('/chat/room', bodyParser.json(), (req, res) => {
   if (!req.session.user) {
-    req.session.redirect = req.body.redirect
     return res.status(404).json({
       error: 'not found',
-      redirect: process.env.LOGIN_REDIRECT
+      redirect: process.env.LOGIN_REDIRECT + '?state=' + req.body.redirect
     })
   } else {
     const roomName = uuid.v4()
@@ -139,10 +138,9 @@ app.post('/chat/room', bodyParser.json(), (req, res) => {
 // grab the current room that a maintainer is in.
 app.post('/chat/room/:user', bodyParser.json(), (req, res) => {
   if (!req.session.user) {
-    req.session.redirect = req.body.redirect
     return res.status(404).json({
       error: 'not found',
-      redirect: process.env.LOGIN_REDIRECT
+      redirect: process.env.LOGIN_REDIRECT + '?state=' + req.body.redirect
     })
   } else {
     client.hgetall(req.params.user, (err, resp) => {

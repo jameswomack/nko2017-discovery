@@ -77,7 +77,8 @@ const oauth2 = SimpleOauth.create({
 app.get('/auth', (req, res) => {
   const authorizationUri = oauth2.authorizationCode.authorizeURL({
     redirect_uri: process.env.GITHUB_CALLBACK || 'http://127.0.0.1:8082/callback',
-    scope: 'read:user,user:email'
+    scope: 'read:user,user:email',
+    state: req.query.state
   })
   res.redirect(authorizationUri)
 })
@@ -103,8 +104,7 @@ app.get('/callback', (req, res) => {
           return saveUser(rawUser, token.token.access_token)
         }).then((user) => {
           req.session.user = user.name
-          const redirect = req.session.redirect || '/'
-          req.session.redirect = null
+          const redirect = req.query.state || '/'
           return res.redirect(redirect)
         }).catch(err => {
           return res.status(500).json({
@@ -158,6 +158,7 @@ app.get('/v1/users/current', (req, res) => {
           error: err.message
         })
       } else {
+        const encodedName = encodeURIComponent(user.name)
         return res.status(200).json({
           name: user.name,
           avatar: user.avatar,
@@ -165,7 +166,7 @@ app.get('/v1/users/current', (req, res) => {
           email: user.email,
           bio: user.bio,
           officeHoursBlurb: user.officeHoursBlurb || '',
-          badge: user.badge || ''
+          badge: `[![Office Hours](https://nko2017-discovery.herokuapp.com/badge/${encodedName})](https://nko2017-discovery.herokuapp.com/chat/join/${encodedName}/guest)`
         })
       }
     })

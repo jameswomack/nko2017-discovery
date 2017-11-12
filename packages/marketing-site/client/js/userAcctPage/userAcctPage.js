@@ -8,7 +8,9 @@ export default class UserAcctPage extends Component {
     super()
     this.state = {}
   }
-
+  launchOfficeHours () {
+    window.location = `/chat/host/${this.props.username}`
+  }
   render() {
     return (
       <div className="account-page">
@@ -20,7 +22,7 @@ export default class UserAcctPage extends Component {
         <GetBadgeLink
           badgeLink={ this.props.badgeLink }
         />
-        <button className="primary-button go-button">Start Office Hours</button>
+        <button onClick={this.launchOfficeHours.bind(this)} className="primary-button go-button">Start Office Hours</button>
       </div>
     )
   }
