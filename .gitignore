@@ -10,3 +10,4 @@ www_talktoamaintainer_com.pem
 www_talktoamaintainer_com.key
 packages/chat-app/public/js
 packages/marketing-site/public/js
+.env

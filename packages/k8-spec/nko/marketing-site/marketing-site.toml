@@ -1,5 +1,5 @@
 name = "marketing-site.nko"
-image = "bcoe/nko-marketing-site:deploy-react_1.0.0_14_0e508e1b"
+image = "bcoe/nko-marketing-site:1.0.0_11_a0a37dbc"
 
 [scale]
   containers = 1
