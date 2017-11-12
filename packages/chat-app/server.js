@@ -5,6 +5,7 @@ require('dotenv').load()
 const twilio = require('twilio')
 const path = require('path')
 const express = require('express')
+const bodyParser = require('body-parser')
 const packageJSON = require('./package')
 
 const app = express()
@@ -37,8 +38,8 @@ const VideoGrant = AccessToken.VideoGrant
  * query parameter. Generates an autoincrementing id for the user's identity.
  */
 let id = 1
-app.get('/token', (req, res) => {
-  const identity = `participant${id}`
+app.post('/token', bodyParser.json(), (req, res) => {
+  const identity = req.body.participantId || `participant${id}`
   id++
 
   // Create an access token which we will sign and return to the client,
@@ -63,19 +64,11 @@ app.get('/token', (req, res) => {
   })
 })
 
-app.get('/chat-app-old.js', (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), 'public', 'chat-app-old.js'))
-})
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/js/app.js', (req, res) => {
-  res.sendFile(path.resolve(process.cwd(), 'js', 'app.js'))
-})
-
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'))
 })
-
-app.use(express.static(path.join(__dirname, 'public')))
 
 app.listen(PORT, () => {
   log(`now live on ${PORT}`)
